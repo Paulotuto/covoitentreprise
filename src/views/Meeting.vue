@@ -25,8 +25,16 @@ const newCommentMap = ref({})    // vehicleId -> draft text
 const commentContainers = ref({})
 let commentInterval = null
 
-const newVehicleName = ref('')
+const departureAddress = ref('')
+const returnAddress = ref('')
+
 const creatingVehicle = ref(false)
+const userHasVehicle = computed(() => {
+  if (!user.value) return false
+  const fullName = getParticipantFullName(user.value.id)
+  if (fullName === '...') return false // Profile not loaded yet
+  return eventVehicles.value.some(v => v.name === fullName)
+})
 
 /**
  * Initialisation des données
@@ -128,6 +136,20 @@ async function handleToggleRegistration(vehicleId) {
   if (!vehicle) return
 
   const isAlreadyRegistered = vehicle.users?.includes(user.value.id)
+  
+  // If user owns a vehicle, they can only "stay" in it
+  const isOwner = vehicle.name === getParticipantFullName(user.value.id)
+  if (userHasVehicle.value && !isOwner) {
+    alert("Vous avez déjà proposé une voiture. Vous ne pouvez pas vous inscrire dans une autre.")
+    return
+  }
+
+  if (isOwner && isAlreadyRegistered) {
+    // Prevent owner from deregistering from their own vehicle
+    alert("En tant que conducteur, vous devez rester inscrit dans votre propre véhicule.")
+    return
+  }
+
   let updatedUsers = []
 
   if (isAlreadyRegistered) {
@@ -160,23 +182,31 @@ async function handleToggleRegistration(vehicleId) {
 }
 
 async function handleCreateVehicle() {
-  if (!newVehicleName.value.trim() || !user.value) return
+  if (!user.value || userHasVehicle.value) return
+  if (!departureAddress.value.trim() || !returnAddress.value.trim()) {
+    alert("Veuillez renseigner les adresses de départ et de retour.")
+    return
+  }
   
   creatingVehicle.value = true
+  console.log(user.value)
   try {
     const { data, error: insertError } = await supabase
       .from('event_vehicles')
       .insert({
-        name: newVehicleName.value.trim(),
+        name: getParticipantFullName(user.value.id),
         event: route.params.id,
-        users: []
+        users: [user.value.id],
+        departure_address: departureAddress.value.trim(),
+        return_address: returnAddress.value.trim()
       })
       .select()
       .single()
 
     if (insertError) throw insertError
     eventVehicles.value.push(data)
-    newVehicleName.value = ''
+    departureAddress.value = ''
+    returnAddress.value = ''
   } catch (err) {
     console.error('Erreur création véhicule:', err)
     alert("Erreur lors de la création du véhicule.")
@@ -185,9 +215,33 @@ async function handleCreateVehicle() {
   }
 }
 
+async function handleDeleteVehicle(vehicleId) {
+  if (!confirm("Êtes-vous sûr de vouloir supprimer votre proposition de covoiturage ?")) return
+
+  try {
+    const { error: deleteError } = await supabase
+      .from('event_vehicles')
+      .delete()
+      .eq('id', vehicleId)
+
+    if (deleteError) throw deleteError
+
+    // Optimistic update
+    eventVehicles.value = eventVehicles.value.filter(v => v.id !== vehicleId)
+  } catch (err) {
+    console.error('Erreur suppression véhicule:', err)
+    alert("Erreur lors de la suppression du véhicule.")
+  }
+}
+
 function getParticipantName(userId) {
   const profile = userProfiles.value[userId]
   return profile ? `${profile.first_name}` : '...'
+}
+
+function getParticipantFullName(userId) {
+  const profile = userProfiles.value[userId]
+  return profile ? `${profile.first_name} ${profile.last_name}` : '...'
 }
 
 async function fetchMeetingMessages() {
@@ -379,7 +433,7 @@ function formatMsgTime(dateStr) {
       <!-- Content -->
       <div v-else-if="meeting" class="animate-in fade-in duration-700">
         <!-- Header Section -->
-        <div class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-8">
           <div class="space-y-4">
             <span class="inline-flex items-center px-4 py-1 rounded-full text-xs font-bold bg-indigo-50 text-indigo-700 uppercase tracking-widest border border-indigo-100">
               Événement d'entreprise
@@ -407,27 +461,39 @@ function formatMsgTime(dateStr) {
             </div>
           </div>
 
-          <!-- Quick Add Vehicle -->
-          <div class="glass p-3 rounded-2xl flex items-center gap-2 border-white/50 animate-in slide-in-from-right duration-500 delay-200">
-            <input 
-              v-model="newVehicleName"
-              type="text"
-              placeholder="Nom de votre voiture..."
-              class="px-4 py-2.5 bg-slate-50/50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:bg-white outline-none text-sm w-48 sm:w-64 transition-all"
-              @keyup.enter="handleCreateVehicle"
-            />
+          <div class="flex flex-col sm:flex-row items-center gap-4 animate-in slide-in-from-right duration-500 delay-200">
+            <div v-if="!userHasVehicle" class="flex flex-col sm:flex-row gap-2">
+              <input 
+                v-model="departureAddress"
+                type="text"
+                placeholder="Adresse de départ"
+                class="px-4 py-2 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none text-sm w-48 transition-all"
+              />
+              <input 
+                v-model="returnAddress"
+                type="text"
+                placeholder="Adresse de retour"
+                class="px-4 py-2 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none text-sm w-48 transition-all"
+              />
+            </div>
             <button 
               @click="handleCreateVehicle"
-              :disabled="creatingVehicle || !newVehicleName.trim()"
-              class="btn-primary py-2.5 px-6 rounded-xl text-xs whitespace-nowrap shadow-indigo-100"
+              :disabled="creatingVehicle || userHasVehicle"
+              class="btn-primary py-3 px-8 rounded-2xl text-sm whitespace-nowrap shadow-indigo-100 flex items-center gap-2 disabled:bg-slate-200 disabled:text-slate-500 disabled:shadow-none transition-all"
             >
-              {{ creatingVehicle ? '...' : '+ Ajouter' }}
+              <svg v-if="!creatingVehicle && !userHasVehicle" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+              </svg>
+              <svg v-else-if="userHasVehicle" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              {{ creatingVehicle ? 'Création...' : (userHasVehicle ? 'Déjà proposé' : 'Proposer ma voiture') }}
             </button>
           </div>
         </div>
 
         <!-- Global Chat Section -->
-        <div class="mb-16 animate-in slide-in-from-bottom duration-700 delay-300">
+        <div class="mb-8 animate-in slide-in-from-bottom duration-700 delay-300">
           <div class="glass border-indigo-100/50 rounded-[2.5rem] p-8 shadow-sm">
             <h2 class="text-2xl font-bold text-slate-900 mb-6 flex items-center">
               <div class="w-10 h-10 bg-indigo-100 rounded-xl flex items-center justify-center mr-3 text-indigo-600">
@@ -440,7 +506,7 @@ function formatMsgTime(dateStr) {
             
             <div 
               ref="chatContainer"
-              class="space-y-4 max-h-[400px] overflow-y-auto mb-6 pr-2 custom-scrollbar"
+              class="space-y-4 max-h-[240px] overflow-y-auto mb-6 pr-2 custom-scrollbar"
             >
               <div v-if="meetingMessages.length === 0" class="text-center py-8 text-slate-400 italic">
                 Aucun message pour l'instant. Lancez la discussion !
@@ -516,10 +582,43 @@ function formatMsgTime(dateStr) {
                   {{ vehicle.name }}
                 </h3>
               </div>
-              <div class="w-12 h-12 bg-indigo-50 rounded-2xl flex items-center justify-center text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+              
+              <!-- Delete Button (Only for owner) -->
+              <button 
+                v-if="vehicle.name === getParticipantFullName(user?.id)"
+                @click="handleDeleteVehicle(vehicle.id)"
+                class="w-10 h-10 bg-red-50 text-red-500 rounded-full flex items-center justify-center hover:bg-red-600 hover:text-white transition-all duration-300 shadow-sm"
+                title="Supprimer ma voiture"
+              >
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
+              </button>
+            </div>
+
+            <div class="grid grid-cols-1 gap-4 mb-6 p-4 bg-slate-50 rounded-2xl border border-slate-100">
+              <div class="flex items-start gap-3">
+                <div class="w-8 h-8 bg-white rounded-lg shadow-sm flex items-center justify-center flex-shrink-0 border border-slate-100">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                </div>
+                <div>
+                  <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Départ</p>
+                  <p class="text-sm text-slate-700 font-medium">{{ vehicle.departure_address || 'Non spécifiée' }}</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <div class="w-8 h-8 bg-white rounded-lg shadow-sm flex items-center justify-center flex-shrink-0 border border-slate-100">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
+                  </svg>
+                </div>
+                <div>
+                  <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Retour</p>
+                  <p class="text-sm text-slate-700 font-medium">{{ vehicle.return_address || 'Non spécifiée' }}</p>
+                </div>
               </div>
             </div>
 
@@ -585,13 +684,19 @@ function formatMsgTime(dateStr) {
 
             <!-- Registration Action -->
             <button
-              class="w-full mt-auto py-4 px-6 rounded-2xl font-bold transition-all duration-300 transform active:scale-[0.98] border-2 shadow-sm"
+              class="w-full mt-auto py-4 px-6 rounded-2xl font-bold transition-all duration-300 transform active:scale-[0.98] border-2 shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
               :class="vehicle.users?.includes(user?.id) 
-                ? 'bg-red-50 text-red-600 border-red-100 hover:bg-red-100 hover:border-red-200' 
-                : 'bg-white text-indigo-600 border-indigo-100 hover:border-indigo-600 hover:bg-indigo-600 hover:text-white hover:shadow-indigo-200 hover:shadow-lg'"
+                ? (vehicle.name === getParticipantFullName(user?.id) ? 'bg-slate-100 text-slate-400 border-slate-200 cursor-not-allowed' : 'bg-red-50 text-red-600 border-red-100 hover:bg-red-100 hover:border-red-200') 
+                : (userHasVehicle ? 'bg-slate-100 text-slate-400 border-slate-200 cursor-not-allowed' : 'bg-white text-indigo-600 border-indigo-100 hover:border-indigo-600 hover:bg-indigo-600 hover:text-white hover:shadow-indigo-200 hover:shadow-lg')"
               @click="handleToggleRegistration(vehicle.id)"
+              :disabled="userHasVehicle && vehicle.name !== getParticipantFullName(user?.id) || (vehicle.name === getParticipantFullName(user?.id) && vehicle.users?.includes(user?.id))"
             >
-              {{ vehicle.users?.includes(user?.id) ? 'Désinscription' : 'Réserver une place' }}
+              <template v-if="vehicle.name === getParticipantFullName(user?.id)">
+                Conducteur (Inscrit)
+              </template>
+              <template v-else>
+                {{ vehicle.users?.includes(user?.id) ? 'Désinscription' : (userHasVehicle ? 'Déjà un véhicule' : 'Réserver une place') }}
+              </template>
             </button>
           </div>
         </div>
