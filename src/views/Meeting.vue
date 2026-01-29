@@ -28,9 +28,12 @@ let commentInterval = null
 const departureAddress = ref('')
 const returnAddress = ref('')
 
+const userRole = ref(null)
+const isAdmin = computed(() => userRole.value === 'admin')
+
 const creatingVehicle = ref(false)
 const userHasVehicle = computed(() => {
-  if (!user.value) return false
+  if (!user.value || isAdmin.value) return false
   const fullName = getParticipantFullName(user.value.id)
   if (fullName === '...') return false // Profile not loaded yet
   return eventVehicles.value.some(v => v.name === fullName)
@@ -114,7 +117,7 @@ async function loadMeetingData() {
 async function fetchProfiles(ids) {
   const { data, error: profError } = await supabase
     .from('profiles')
-    .select('id, first_name, last_name')
+    .select('id, first_name, last_name, role')
     .in('id', ids)
 
   if (profError) {
@@ -125,12 +128,15 @@ async function fetchProfiles(ids) {
   const newProfiles = { ...userProfiles.value }
   data.forEach(p => {
     newProfiles[p.id] = p
+    if (user.value && p.id === user.value.id) {
+      userRole.value = p.role
+    }
   })
   userProfiles.value = newProfiles
 }
 
 async function handleToggleRegistration(vehicleId) {
-  if (!user.value) return
+  if (!user.value || isAdmin.value) return
 
   const vehicle = eventVehicles.value.find(v => v.id === vehicleId)
   if (!vehicle) return
@@ -182,7 +188,7 @@ async function handleToggleRegistration(vehicleId) {
 }
 
 async function handleCreateVehicle() {
-  if (!user.value || userHasVehicle.value) return
+  if (!user.value || userHasVehicle.value || isAdmin.value) return
   if (!departureAddress.value.trim() || !returnAddress.value.trim()) {
     alert("Veuillez renseigner les adresses de départ et de retour.")
     return
@@ -461,8 +467,8 @@ function formatMsgTime(dateStr) {
             </div>
           </div>
 
-          <div class="flex flex-col sm:flex-row items-center gap-4 animate-in slide-in-from-right duration-500 delay-200">
-            <div v-if="!userHasVehicle" class="flex flex-col sm:flex-row gap-2">
+          <div v-if="!userHasVehicle && !isAdmin" class="flex flex-col sm:flex-row items-center gap-4 animate-in slide-in-from-right duration-500 delay-200">
+            <div class="flex flex-col sm:flex-row gap-2">
               <input 
                 v-model="departureAddress"
                 type="text"
@@ -687,13 +693,16 @@ function formatMsgTime(dateStr) {
             <!-- Registration Action -->
             <button
               class="w-full mt-auto py-4 px-6 rounded-2xl font-bold transition-all duration-300 transform active:scale-[0.98] border-2 shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
-              :class="vehicle.users?.includes(user?.id) 
+              :class="isAdmin ? 'bg-slate-50 text-slate-400 border-slate-100 cursor-default' : (vehicle.users?.includes(user?.id) 
                 ? (vehicle.name === getParticipantFullName(user?.id) ? 'bg-slate-100 text-slate-400 border-slate-200 cursor-not-allowed' : 'bg-red-50 text-red-600 border-red-100 hover:bg-red-100 hover:border-red-200') 
-                : (userHasVehicle ? 'bg-slate-100 text-slate-400 border-slate-200 cursor-not-allowed' : 'bg-white text-indigo-600 border-indigo-100 hover:border-indigo-600 hover:bg-indigo-600 hover:text-white hover:shadow-indigo-200 hover:shadow-lg')"
+                : (userHasVehicle ? 'bg-slate-100 text-slate-400 border-slate-200 cursor-not-allowed' : 'bg-white text-indigo-600 border-indigo-100 hover:border-indigo-600 hover:bg-indigo-600 hover:text-white hover:shadow-indigo-200 hover:shadow-lg'))"
               @click="handleToggleRegistration(vehicle.id)"
-              :disabled="userHasVehicle && vehicle.name !== getParticipantFullName(user?.id) || (vehicle.name === getParticipantFullName(user?.id) && vehicle.users?.includes(user?.id))"
+              :disabled="isAdmin || (userHasVehicle && vehicle.name !== getParticipantFullName(user?.id)) || (vehicle.name === getParticipantFullName(user?.id) && vehicle.users?.includes(user?.id))"
             >
-              <template v-if="vehicle.name === getParticipantFullName(user?.id)">
+              <template v-if="isAdmin">
+                Mode consultation uniquement
+              </template>
+              <template v-else-if="vehicle.name === getParticipantFullName(user?.id)">
                 Conducteur (Inscrit)
               </template>
               <template v-else>
