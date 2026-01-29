@@ -80,7 +80,7 @@ async function handleLogout() {
             <router-link to="/signup" class="btn-primary text-xs sm:text-base py-2 sm:py-3 px-3 sm:px-6 whitespace-nowrap flex-shrink-0">S'inscrire</router-link>
           </template>
           <template v-else>
-            <button @click="handleLogout" class="btn-secondary py-2 text-xs sm:text-sm border-0 bg-transparent text-slate-500 hover:text-red-600 hover:bg-red-50 flex-shrink-0">Déconnexion</button>
+            <button @click="handleLogout" class="cursor-pointer btn-secondary py-2 text-xs sm:text-sm border-0 bg-transparent text-slate-500 hover:text-red-600 hover:bg-red-50 flex-shrink-0">Déconnexion</button>
           </template>
         </div>
       </div>

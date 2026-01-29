@@ -104,7 +104,7 @@ async function handleLogout() {
           </div>
         </div>
         
-        <button @click="handleLogout" class="text-slate-500 hover:text-red-600 font-bold transition-colors text-sm px-4 py-2 rounded-xl hover:bg-red-50">
+        <button @click="handleLogout" class="cursor-pointer text-slate-500 hover:text-red-600 font-bold transition-colors text-sm px-4 py-2 rounded-xl hover:bg-red-50">
           Déconnexion
         </button>
       </div>
