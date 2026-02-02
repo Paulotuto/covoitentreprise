@@ -83,16 +83,16 @@ async function handleSignup() {
 </script>
 
 <template>
-  <div class="min-h-screen py-20 flex items-center justify-center px-6 relative overflow-hidden bg-slate-50">
+  <div class="min-h-screen py-20 flex items-center justify-center px-6 relative overflow-hidden bg-white">
     <!-- Background Decor -->
-    <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo-100/50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-    <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-emerald-100/50 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
+    <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-green-50/50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+    <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-green-100/30 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
 
     <div class="w-full max-w-xl animate-in fade-in slide-in-from-bottom duration-700">
       <!-- Logo/Brand -->
       <div class="flex flex-col items-center mb-10 text-center">
         <router-link to="/" class="group">
-          <div class="w-16 h-16 bg-indigo-600 rounded-2xl flex items-center justify-center shadow-xl mb-4 group-hover:-rotate-6 transition-transform">
+          <div class="w-16 h-16 bg-[#2d6b3f] rounded-2xl flex items-center justify-center shadow-xl mb-4 group-hover:-rotate-6 transition-transform">
              <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
              </svg>
@@ -126,7 +126,7 @@ async function handleSignup() {
           </div>
 
           <!-- Company Selection (Autocomplete only) -->
-          <div class="bg-indigo-50/50 p-6 rounded-3xl border border-indigo-100 space-y-4 mt-8">
+          <div class="bg-green-50/50 p-6 rounded-3xl border border-green-100 space-y-4 mt-8">
             <div class="relative">
               <label for="company" class="block text-sm font-bold text-slate-700 mb-2 ml-1">Mon entreprise</label>
               <div class="relative">
@@ -152,7 +152,7 @@ async function handleSignup() {
                       v-for="c in filteredCompanies" 
                       :key="c.id"
                       @click="selectCompany(c)"
-                      class="px-5 py-3 hover:bg-indigo-50 cursor-pointer transition-colors"
+                      class="px-5 py-3 hover:bg-green-50 cursor-pointer transition-colors"
                     >
                       <div class="font-bold text-slate-900">{{ c.name }}</div>
                     </li>
@@ -168,7 +168,7 @@ async function handleSignup() {
           <button 
             type="submit" 
             :disabled="loading"
-            class="btn-primary w-full py-4 text-lg mt-8 flex items-center justify-center"
+            class="btn-primary cursor-pointer w-full py-4 text-lg mt-8 flex items-center justify-center"
           >
             <span v-if="loading" class="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2"></span>
             {{ loading ? 'S\'inscrire...' : "Créer mon compte" }}
@@ -182,7 +182,7 @@ async function handleSignup() {
         <div class="mt-10 pt-8 border-t border-slate-100 text-center">
           <p class="text-slate-500 text-sm">
             Vous avez déjà un compte ? 
-            <router-link to="/login" class="font-bold text-indigo-600 hover:text-indigo-700 ml-1">Se connecter</router-link>
+            <router-link to="/login" class="font-bold text-[#2d6b3f] hover:text-[#235230] ml-1">Se connecter</router-link>
           </p>
         </div>
       </div>

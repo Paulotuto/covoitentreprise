@@ -44,15 +44,15 @@ async function handleUpdatePassword() {
 </script>
 
 <template>
-  <div class="min-h-screen flex items-center justify-center px-6 relative overflow-hidden bg-slate-50">
+  <div class="min-h-screen flex items-center justify-center px-6 relative overflow-hidden bg-white">
     <!-- Background Decor -->
-    <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo-100/50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-    <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-emerald-100/50 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
+    <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-green-50/50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+    <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-green-100/30 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
 
     <div class="w-full max-w-md animate-in fade-in slide-in-from-bottom duration-700">
       <!-- Logo/Brand -->
       <div class="flex flex-col items-center mb-10 text-center">
-        <div class="w-16 h-16 bg-indigo-600 rounded-2xl flex items-center justify-center shadow-xl mb-4 transition-transform">
+        <div class="w-16 h-16 bg-[#2d6b3f] rounded-2xl flex items-center justify-center shadow-xl mb-4 transition-transform">
            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 00-2 2zm10-10V7a4 4 0 00-8 0v4h8z" />
            </svg>
@@ -70,7 +70,7 @@ async function handleUpdatePassword() {
               type="password" 
               id="password" 
               required 
-              class="w-full px-5 py-4 bg-slate-50/50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-indigo-500 focus:bg-white outline-none transition-all placeholder:text-slate-400"
+              class="w-full px-5 py-4 bg-slate-50/50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-[#2d6b3f] focus:bg-white outline-none transition-all placeholder:text-slate-400"
               placeholder="••••••••"
             />
           </div>
@@ -82,7 +82,7 @@ async function handleUpdatePassword() {
               type="password" 
               id="confirmPassword" 
               required 
-              class="w-full px-5 py-4 bg-slate-50/50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-indigo-500 focus:bg-white outline-none transition-all placeholder:text-slate-400"
+              class="w-full px-5 py-4 bg-slate-50/50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-[#2d6b3f] focus:bg-white outline-none transition-all placeholder:text-slate-400"
               placeholder="••••••••"
             />
           </div>
@@ -111,7 +111,7 @@ async function handleUpdatePassword() {
           <p class="text-sm text-red-600 bg-red-50/50 py-3 rounded-xl border border-red-100 mb-6">
             {{ error }}
           </p>
-          <router-link to="/forgot-password" class="inline-block font-bold text-indigo-600 hover:text-indigo-700 transition-colors">
+          <router-link to="/forgot-password" class="inline-block font-bold text-[#2d6b3f] hover:text-[#235230] transition-colors">
             Réessayer la demande
           </router-link>
         </div>

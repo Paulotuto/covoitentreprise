@@ -63,10 +63,10 @@ async function handleLogout() {
 <template>
   <div class="min-h-screen">
     <!-- Navigation Bar -->
-    <nav class="sticky top-0 z-50 glass border-b border-indigo-100/50 px-4 sm:px-6 py-4">
+    <nav class="sticky top-0 z-50 glass border-b border-green-100/50 px-4 sm:px-6 py-4">
       <div class="max-w-7xl mx-auto flex justify-between items-center gap-2">
         <div class="flex items-center space-x-2 flex-shrink-0">
-          <div class="w-8 h-8 sm:w-10 sm:h-10 bg-indigo-600 rounded-lg sm:rounded-xl flex items-center justify-center shadow-lg transform -rotate-3 hover:rotate-0 transition-transform cursor-pointer">
+          <div class="w-8 h-8 sm:w-10 sm:h-10 bg-[#2d6b3f] rounded-lg sm:rounded-xl flex items-center justify-center shadow-lg transform -rotate-3 hover:rotate-0 transition-transform cursor-pointer">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
             </svg>
@@ -76,7 +76,7 @@ async function handleLogout() {
         
         <div class="flex items-center space-x-2 sm:space-x-4 flex-shrink-0">
           <template v-if="!user">
-            <router-link to="/login" class="text-slate-600 font-semibold hover:text-indigo-600 transition-colors text-xs sm:text-base whitespace-nowrap">Connexion</router-link>
+            <router-link to="/login" class="text-slate-600 font-semibold hover:text-[#2d6b3f] transition-colors text-xs sm:text-base whitespace-nowrap">Connexion</router-link>
             <router-link to="/signup" class="btn-primary text-xs sm:text-base py-2 sm:py-3 px-3 sm:px-6 whitespace-nowrap flex-shrink-0">S'inscrire</router-link>
           </template>
           <template v-else>
@@ -90,11 +90,11 @@ async function handleLogout() {
     <div v-if="!user" class="pt-20 pb-40">
       <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
         <div class="animate-in fade-in slide-in-from-left duration-1000">
-          <span class="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-bold bg-indigo-50 text-indigo-700 mb-6">
+          <span class="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-bold bg-green-50 text-[#2d6b3f] mb-6">
             ✨ Optimisez vos déplacements corporate
           </span>
           <h1 class="text-6xl font-serif text-slate-900 leading-[1.1] mb-8">
-            Le covoiturage intelligent pour votre <span class="text-indigo-600 underline decoration-indigo-200 underline-offset-8">entreprise</span>.
+            Le covoiturage intelligent pour votre <span class="text-[#2d6b3f] underline decoration-green-200 underline-offset-8">entreprise</span>.
           </h1>
           <p class="text-xl text-slate-600 mb-12 leading-relaxed max-w-lg">
             Facilitez les trajets de vos employés vers vos réunions et événements. Une solution simple, écologique et collaborative pour booster la cohésion d'équipe.
@@ -106,18 +106,18 @@ async function handleLogout() {
         </div>
         
         <div class="relative animate-in fade-in slide-in-from-right duration-1000">
-          <div class="absolute -top-10 -left-10 w-40 h-40 bg-indigo-100 rounded-full blur-3xl opacity-50"></div>
-          <div class="hidden absolute -bottom-10 -right-10 w-40 h-40 bg-sky-100 rounded-full blur-3xl opacity-50"></div>
+          <div class="absolute -top-10 -left-10 w-40 h-40 bg-green-50 rounded-full blur-3xl opacity-50"></div>
+          <div class="hidden absolute -bottom-10 -right-10 w-40 h-40 bg-green-50 rounded-full blur-3xl opacity-50"></div>
           <div class="relative glass rounded-[2.5rem] p-4 group overflow-hidden border-2 border-white">
             <div class="aspect-square bg-slate-50 rounded-[2rem] flex items-center justify-center p-12 relative overflow-hidden">
                <!-- Abstract illustration placeholder with vehicle/connection vibe -->
-               <svg xmlns="http://www.w3.org/2000/svg" class="w-full h-full text-indigo-300 animate-float" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+               <svg xmlns="http://www.w3.org/2000/svg" class="w-full h-full text-green-300 animate-float" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                </svg>
             </div>
             
-            <div class="hidden absolute bottom-10 right-10 glass p-4 rounded-2xl shadow-xl border border-indigo-100/50 flex items-center space-x-3 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+            <div class="hidden absolute bottom-10 right-10 glass p-4 rounded-2xl shadow-xl border border-green-100/50 flex items-center space-x-3 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
               <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
@@ -176,8 +176,8 @@ async function handleLogout() {
     <!-- AUTHENTICATED DASHBOARD (User) -->
     <div v-else class="max-w-7xl mx-auto px-6 py-12">
       <!-- Loading State -->
-      <div v-if="loading" class="flex flex-col items-center justify-center py-24 text-indigo-600 animate-pulse">
-        <div class="w-12 h-12 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin mb-4"></div>
+      <div v-if="loading" class="flex flex-col items-center justify-center py-24 text-[#2d6b3f] animate-pulse">
+        <div class="w-12 h-12 border-4 border-[#2d6b3f] border-t-transparent rounded-full animate-spin mb-4"></div>
         <span class="text-lg font-medium">Préparation de votre espace...</span>
       </div>
 
@@ -206,22 +206,22 @@ async function handleLogout() {
                </div>
                <div>
                  <h2 class="text-2xl font-bold text-slate-900">En attente de validation</h2>
-                 <p class="text-slate-500">Votre accès est en cours d'examen par l'admin de <span class="text-indigo-600 font-bold">{{ company?.name }}</span>.</p>
+                 <p class="text-slate-500">Votre accès est en cours d'examen par l'admin de <span class="text-[#2d6b3f] font-bold">{{ company?.name }}</span>.</p>
                </div>
              </div>
           </div>
           
           <div v-else class="flex-grow">
-            <h1 class="text-4xl font-serif text-slate-900 mb-2">Bonjour, <span class="text-indigo-600">{{ profile.first_name }}</span> ! 👋</h1>
-            <p class="text-lg text-slate-500">Bienvenue dans votre espace <span class="font-bold underline decoration-indigo-200">{{ company?.name }}</span>.</p>
+            <h1 class="text-4xl font-serif text-slate-900 mb-2">Bonjour, <span class="text-[#2d6b3f]">{{ profile.first_name }}</span> ! 👋</h1>
+            <p class="text-lg text-slate-500">Bienvenue dans votre espace <span class="font-bold underline decoration-green-200">{{ company?.name }}</span>.</p>
           </div>
         </div>
 
         <!-- Meetings Section (for Approved Users) -->
         <div v-if="profile.status === 'approved'" class="space-y-8">
-          <div class="flex justify-between items-center bg-indigo-50/50 p-6 rounded-3xl">
+          <div class="flex justify-between items-center bg-green-50/50 p-6 rounded-3xl">
             <h2 class="text-2xl font-bold text-slate-900">Réunions à venir</h2>
-            <span class="px-4 py-1.5 bg-indigo-600 text-white text-xs font-bold rounded-full uppercase tracking-widest">{{ meetings.length }} événement(s)</span>
+            <span class="px-4 py-1.5 bg-[#2d6b3f] text-white text-xs font-bold rounded-full uppercase tracking-widest">{{ meetings.length }} événement(s)</span>
           </div>
 
           <div v-if="meetings.length === 0" class="card border-dashed border-2 border-slate-200 text-center py-20 bg-slate-50/50">
@@ -230,13 +230,13 @@ async function handleLogout() {
           
           <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div v-for="meeting in meetings" :key="meeting.id" 
-              class="card group cursor-pointer hover:border-indigo-600 hover:-translate-y-1 transition-all duration-300"
+              class="card group cursor-pointer hover:border-[#2d6b3f] hover:-translate-y-1 transition-all duration-300"
               @click="router.push(`/meeting/${meeting.id}`)"
             >
-              <h3 class="text-xl font-bold text-slate-900 mb-6 group-hover:text-indigo-600 transition-colors">{{ meeting.title }}</h3>
+              <h3 class="text-xl font-bold text-slate-900 mb-6 group-hover:text-[#2d6b3f] transition-colors">{{ meeting.title }}</h3>
               <div class="space-y-3">
                 <div class="flex items-center text-slate-500 text-sm">
-                  <div class="w-8 h-8 rounded-lg bg-slate-50 flex items-center justify-center mr-3 group-hover:bg-indigo-50 transition-colors">
+                  <div class="w-8 h-8 rounded-lg bg-slate-50 flex items-center justify-center mr-3 group-hover:bg-green-50 transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                     </svg>
@@ -244,7 +244,7 @@ async function handleLogout() {
                   {{ formatDate(meeting.date).date }}
                 </div>
                 <div class="flex items-center text-slate-500 text-sm">
-                  <div class="w-8 h-8 rounded-lg bg-slate-50 flex items-center justify-center mr-3 group-hover:bg-indigo-50 transition-colors">
+                  <div class="w-8 h-8 rounded-lg bg-slate-50 flex items-center justify-center mr-3 group-hover:bg-green-50 transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
@@ -254,8 +254,8 @@ async function handleLogout() {
               </div>
               
               <div class="mt-8 pt-6 border-t border-slate-50 flex justify-between items-center">
-                 <span class="text-indigo-600 text-sm font-bold">Voir les voitures</span>
-                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-400 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                 <span class="text-[#2d6b3f] text-sm font-bold">Voir les voitures</span>
+                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-400 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                  </svg>
               </div>

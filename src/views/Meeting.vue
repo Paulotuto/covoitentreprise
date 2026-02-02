@@ -407,11 +407,11 @@ function formatMsgTime(dateStr) {
 </script>
 
 <template>
-  <div class="min-h-screen pb-20 bg-slate-50">
+  <div class="min-h-screen pb-20 bg-white">
     <!-- Navbar -->
-    <nav class="glass border-b border-indigo-100/50 px-6 py-4 sticky top-0 z-50">
+    <nav class="glass border-b border-green-100/50 px-6 py-4 sticky top-0 z-50">
       <div class="max-w-7xl mx-auto flex justify-between items-center">
-        <button @click="goBack" class="flex cursor-pointer items-center text-slate-500 hover:text-indigo-600 font-bold transition-colors group">
+        <button @click="goBack" class="flex cursor-pointer items-center text-slate-500 hover:text-[#2d6b3f] font-bold transition-colors group">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
           </svg>
@@ -419,7 +419,7 @@ function formatMsgTime(dateStr) {
         </button>
         
         <div class="hidden md:flex items-center space-x-2">
-           <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center shadow-lg transform -rotate-3 group-hover:rotate-0 transition-transform">
+           <div class="w-8 h-8 bg-[#2d6b3f] rounded-lg flex items-center justify-center shadow-lg transform -rotate-3 group-hover:rotate-0 transition-transform">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
             </svg>
@@ -431,8 +431,8 @@ function formatMsgTime(dateStr) {
 
     <div class="max-w-5xl mx-auto px-6 mt-12">
       <!-- Loading State -->
-      <div v-if="loading" class="flex flex-col items-center justify-center py-24 text-indigo-600 animate-pulse">
-        <div class="w-12 h-12 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin mb-4"></div>
+      <div v-if="loading" class="flex flex-col items-center justify-center py-24 text-[#2d6b3f] animate-pulse">
+        <div class="w-12 h-12 border-4 border-[#2d6b3f] border-t-transparent rounded-full animate-spin mb-4"></div>
         <span class="text-lg font-medium">Récupération des trajets en cours...</span>
       </div>
 
@@ -441,7 +441,7 @@ function formatMsgTime(dateStr) {
         <!-- Header Section -->
         <div class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-8">
           <div class="space-y-4">
-            <span class="inline-flex items-center px-4 py-1 rounded-full text-xs font-bold bg-indigo-50 text-indigo-700 uppercase tracking-widest border border-indigo-100">
+            <span class="inline-flex items-center px-4 py-1 rounded-full text-xs font-bold bg-green-50 text-[#2d6b3f] uppercase tracking-widest border border-green-100">
               Événement d'entreprise
             </span>
             <h1 class="text-4xl md:text-5xl font-serif text-slate-900 leading-tight">
@@ -450,7 +450,7 @@ function formatMsgTime(dateStr) {
             <div class="flex items-center gap-6 text-slate-500 font-medium">
               <span class="flex items-center">
                 <div class="w-8 h-8 bg-white rounded-lg shadow-sm flex items-center justify-center mr-2 border border-slate-100">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-[#2d6b3f]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                   </svg>
                 </div>
@@ -458,7 +458,7 @@ function formatMsgTime(dateStr) {
               </span>
               <span class="flex items-center">
                 <div class="w-8 h-8 bg-white rounded-lg shadow-sm flex items-center justify-center mr-2 border border-slate-100">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-[#2d6b3f]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
@@ -473,19 +473,19 @@ function formatMsgTime(dateStr) {
                 v-model="departureAddress"
                 type="text"
                 placeholder="Adresse de départ"
-                class="px-4 py-2 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none text-sm w-48 transition-all"
+                class="px-4 py-2 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-[#2d6b3f] outline-none text-sm w-48 transition-all"
               />
               <input 
                 v-model="returnAddress"
                 type="text"
                 placeholder="Adresse de retour"
-                class="px-4 py-2 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none text-sm w-48 transition-all"
+                class="px-4 py-2 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-[#2d6b3f] outline-none text-sm w-48 transition-all"
               />
             </div>
             <button 
               @click="handleCreateVehicle"
               :disabled="creatingVehicle || userHasVehicle"
-              class="btn-primary py-3 px-8 rounded-2xl text-sm whitespace-nowrap shadow-indigo-100 flex items-center gap-2 disabled:bg-slate-200 disabled:text-slate-500 disabled:shadow-none transition-all"
+              class="btn-primary py-3 px-8 rounded-2xl text-sm whitespace-nowrap shadow-green-100 flex items-center gap-2 disabled:bg-slate-200 disabled:text-slate-500 disabled:shadow-none transition-all"
             >
               <svg v-if="!creatingVehicle && !userHasVehicle" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
@@ -500,9 +500,9 @@ function formatMsgTime(dateStr) {
 
         <!-- Global Chat Section -->
         <div class="mb-8 animate-in slide-in-from-bottom duration-700 delay-300">
-          <div class="glass border-indigo-100/50 rounded-[2.5rem] p-8 shadow-sm">
+          <div class="glass border-green-100/50 rounded-[2.5rem] p-8 shadow-sm">
             <h2 class="text-2xl font-bold text-slate-900 mb-6 flex items-center">
-              <div class="w-10 h-10 bg-indigo-100 rounded-xl flex items-center justify-center mr-3 text-indigo-600">
+              <div class="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center mr-3 text-[#2d6b3f]">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
                 </svg>
@@ -532,7 +532,7 @@ function formatMsgTime(dateStr) {
                 <div 
                   class="px-4 py-2.5 rounded-2xl text-sm max-w-[80%] shadow-sm"
                   :class="msg.user_id === user?.id 
-                    ? 'bg-indigo-600 text-white rounded-tr-none' 
+                    ? 'bg-[#2d6b3f] text-white rounded-tr-none' 
                     : 'bg-white border border-slate-100 text-slate-700 rounded-tl-none'"
                 >
                   {{ msg.content }}
@@ -545,14 +545,14 @@ function formatMsgTime(dateStr) {
                 v-model="newMessage"
                 type="text"
                 placeholder="Votre message..."
-                class="flex-grow px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-indigo-500 focus:bg-white outline-none text-sm transition-all"
+                class="flex-grow px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-[#2d6b3f] focus:bg-white outline-none text-sm transition-all"
                 @keyup.enter="handleSendMessage"
               />
               <button 
                 @click="handleSendMessage"
                 :disabled="!newMessage.trim()"
                 :class="newMessage.trim() ? 'cursor-pointer' : 'cursor-not-allowed'"
-                class="w-12 h-12 bg-indigo-600 text-white rounded-2xl flex items-center justify-center hover:bg-indigo-700 transition-colors shadow-lg shadow-indigo-100 disabled:opacity-50"
+                class="w-12 h-12 bg-[#2d6b3f] text-white rounded-2xl flex items-center justify-center hover:bg-[#235230] transition-colors shadow-lg shadow-green-100 disabled:opacity-50"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
@@ -580,11 +580,11 @@ function formatMsgTime(dateStr) {
             class="card bg-white p-8 rounded-[2rem] border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group overflow-hidden relative"
           >
             <!-- Background Decoration -->
-            <div class="absolute -top-10 -right-10 w-24 h-24 bg-indigo-50 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <div class="absolute -top-10 -right-10 w-24 h-24 bg-green-50 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
 
             <div class="flex justify-between items-start mb-8 relative">
               <div>
-                <span class="text-[10px] font-bold text-indigo-600 uppercase tracking-[0.2em] mb-1 block">Voiture de</span>
+                <span class="text-[10px] font-bold text-[#2d6b3f] uppercase tracking-[0.2em] mb-1 block">Voiture de</span>
                 <h3 class="text-2xl font-bold text-slate-900">
                   {{ vehicle.name }}
                 </h3>
@@ -606,7 +606,7 @@ function formatMsgTime(dateStr) {
             <div class="grid grid-cols-1 gap-4 mb-6 p-4 bg-slate-50 rounded-2xl border border-slate-100">
               <div class="flex items-start gap-3">
                 <div class="w-8 h-8 bg-white rounded-lg shadow-sm flex items-center justify-center flex-shrink-0 border border-slate-100">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-[#2d6b3f]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
@@ -618,7 +618,7 @@ function formatMsgTime(dateStr) {
               </div>
               <div class="flex items-start gap-3">
                 <div class="w-8 h-8 bg-white rounded-lg shadow-sm flex items-center justify-center flex-shrink-0 border border-slate-100">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-[#2d6b3f]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
                   </svg>
                 </div>
@@ -638,9 +638,9 @@ function formatMsgTime(dateStr) {
                 <li
                   v-for="userId in (vehicle.users ?? [])"
                   :key="userId"
-                  class="inline-flex items-center px-4 py-2 bg-indigo-50 text-indigo-700 rounded-xl text-sm font-semibold border border-indigo-100 shadow-sm animate-in zoom-in duration-300"
+                  class="inline-flex items-center px-4 py-2 bg-green-50 text-[#2d6b3f] rounded-xl text-sm font-semibold border border-green-100 shadow-sm animate-in zoom-in duration-300"
                 >
-                  <div class="w-2 h-2 rounded-full bg-indigo-400 mr-2"></div>
+                  <div class="w-2 h-2 rounded-full bg-green-400 mr-2"></div>
                   {{ getParticipantName(userId) }}
                 </li>
               </ul>
@@ -661,7 +661,7 @@ function formatMsgTime(dateStr) {
                     class="bg-slate-50/50 p-3 rounded-xl border border-slate-100"
                   >
                     <div class="flex justify-between items-center mb-1">
-                      <span class="text-[9px] font-bold text-indigo-400 uppercase">{{ userProfiles[comm.user_id]?.first_name || '...' }}</span>
+                      <span class="text-[9px] font-bold text-green-600 uppercase">{{ userProfiles[comm.user_id]?.first_name || '...' }}</span>
                       <span class="text-[8px] text-slate-300">{{ formatMsgTime(comm.created_at) }}</span>
                     </div>
                     <p class="text-xs text-slate-600 leading-relaxed">{{ comm.content }}</p>
@@ -673,14 +673,14 @@ function formatMsgTime(dateStr) {
                     v-model="newCommentMap[vehicle.id]"
                     type="text"
                     placeholder="Écrire..."
-                    class="flex-grow px-3 py-2 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none text-[11px] transition-all"
+                    class="flex-grow px-3 py-2 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-[#2d6b3f] outline-none text-[11px] transition-all"
                     @keyup.enter="handleSendComment(vehicle.id)"
                   />
                   <button 
                     @click="handleSendComment(vehicle.id)"
                     :disabled="!newCommentMap[vehicle.id]?.trim()"
                     :class="newCommentMap[vehicle.id]?.trim() ? 'cursor-pointer' : 'cursor-not-allowed'"
-                    class="px-3 py-2 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center hover:bg-indigo-600 hover:text-white transition-colors disabled:opacity-50"
+                    class="px-3 py-2 bg-green-50 text-[#2d6b3f] rounded-xl flex items-center justify-center hover:bg-[#2d6b3f] hover:text-white transition-colors disabled:opacity-50"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
@@ -695,7 +695,7 @@ function formatMsgTime(dateStr) {
               class="w-full mt-auto py-4 px-6 rounded-2xl font-bold transition-all duration-300 transform active:scale-[0.98] border-2 shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
               :class="isAdmin ? 'bg-slate-50 text-slate-400 border-slate-100 cursor-default' : (vehicle.users?.includes(user?.id) 
                 ? (vehicle.name === getParticipantFullName(user?.id) ? 'bg-slate-100 text-slate-400 border-slate-200 cursor-not-allowed' : 'bg-red-50 text-red-600 border-red-100 hover:bg-red-100 hover:border-red-200') 
-                : (userHasVehicle ? 'bg-slate-100 text-slate-400 border-slate-200 cursor-not-allowed' : 'bg-white text-indigo-600 border-indigo-100 hover:border-indigo-600 hover:bg-indigo-600 hover:text-white hover:shadow-indigo-200 hover:shadow-lg'))"
+                : (userHasVehicle ? 'bg-slate-100 text-slate-400 border-slate-200 cursor-not-allowed' : 'bg-white text-[#2d6b3f] border-green-100 hover:border-[#2d6b3f] hover:bg-[#2d6b3f] hover:text-white hover:shadow-green-200 hover:shadow-lg'))"
               @click="handleToggleRegistration(vehicle.id)"
               :disabled="isAdmin || (userHasVehicle && vehicle.name !== getParticipantFullName(user?.id)) || (vehicle.name === getParticipantFullName(user?.id) && vehicle.users?.includes(user?.id))"
             >

@@ -88,19 +88,19 @@ async function handleLogout() {
 </script>
 
 <template>
-  <div class="min-h-screen bg-slate-50 pb-20">
+  <div class="min-h-screen bg-white pb-20">
     <!-- Admin Header -->
-    <header class="glass sticky top-0 z-50 border-b border-indigo-100/50 px-6 py-4">
+    <header class="glass sticky top-0 z-50 border-b border-green-100/50 px-6 py-4">
       <div class="max-w-7xl mx-auto flex justify-between items-center">
         <div class="flex items-center space-x-4">
-          <div class="w-12 h-12 bg-indigo-600 rounded-2xl flex items-center justify-center shadow-xl">
+          <div class="w-12 h-12 bg-[#2d6b3f] rounded-2xl flex items-center justify-center shadow-xl">
              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
              </svg>
           </div>
           <div>
             <h1 class="text-xl font-bold text-slate-900">Espace Administration</h1>
-            <p class="text-indigo-600 text-xs font-bold uppercase tracking-widest">{{ adminProfile?.companies?.name }}</p>
+            <p class="text-[#2d6b3f] text-xs font-bold uppercase tracking-widest">{{ adminProfile?.companies?.name }}</p>
           </div>
         </div>
         
@@ -112,24 +112,24 @@ async function handleLogout() {
 
     <div class="max-w-7xl mx-auto px-6 mt-12">
       <!-- Loading State -->
-      <div v-if="loading" class="flex flex-col items-center justify-center py-24 text-indigo-600 animate-pulse">
-        <div class="w-12 h-12 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin mb-4"></div>
+      <div v-if="loading" class="flex flex-col items-center justify-center py-24 text-[#2d6b3f] animate-pulse">
+        <div class="w-12 h-12 border-4 border-[#2d6b3f] border-t-transparent rounded-full animate-spin mb-4"></div>
         <span class="text-lg font-medium">Chargement des données administratives...</span>
       </div>
 
       <div v-else class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <!-- Sidebar/Stats -->
         <div class="lg:col-span-1 space-y-6">
-           <div class="card bg-indigo-600 p-8 text-white shadow-indigo-200">
-              <h3 class="text-indigo-100 text-sm font-bold uppercase tracking-widest mb-6">Résumé</h3>
+           <div class="card bg-[#2d6b3f] p-8 text-white shadow-green-100">
+              <h3 class="text-green-50 text-sm font-bold uppercase tracking-widest mb-6">Résumé</h3>
               <div class="space-y-6">
                 <div>
                   <div class="text-4xl font-serif font-bold">{{ pendingUsers.length }}</div>
-                  <div class="text-indigo-200 text-sm mt-1 font-medium">Demandes en attente</div>
+                  <div class="text-green-100 text-sm mt-1 font-medium">Demandes en attente</div>
                 </div>
                 <div>
                   <div class="text-4xl font-serif font-bold">{{ events.length }}</div>
-                  <div class="text-indigo-200 text-sm mt-1 font-medium">Événements planifiés</div>
+                  <div class="text-green-100 text-sm mt-1 font-medium">Événements planifiés</div>
                 </div>
               </div>
            </div>
@@ -160,10 +160,10 @@ async function handleLogout() {
                   </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-50">
-                  <tr v-for="user in pendingUsers" :key="user.id" class="hover:bg-indigo-50/30 transition-colors group">
+                  <tr v-for="user in pendingUsers" :key="user.id" class="hover:bg-green-50/30 transition-colors group">
                     <td class="px-8 py-6">
                       <div class="flex items-center">
-                        <div class="w-10 h-10 bg-indigo-50 rounded-xl flex items-center justify-center text-indigo-600 font-bold mr-4 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+                        <div class="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center text-[#2d6b3f] font-bold mr-4 group-hover:bg-[#2d6b3f] group-hover:text-white transition-colors">
                           {{ user.first_name[0] }}{{ user.last_name[0] }}
                         </div>
                         <div>
@@ -219,9 +219,9 @@ async function handleLogout() {
             </div>
             
             <div v-else class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div v-for="r in events" :key="r.id" class="card p-6 bg-white hover:border-indigo-200 transition-colors flex justify-between items-center group">
+              <div v-for="r in events" :key="r.id" class="card p-6 bg-white hover:border-green-200 transition-colors flex justify-between items-center group">
                 <div>
-                  <h3 class="font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">{{ r.title }}</h3>
+                  <h3 class="font-bold text-slate-900 group-hover:text-[#2d6b3f] transition-colors">{{ r.title }}</h3>
                   <div class="flex items-center mt-2 text-xs text-slate-400">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -229,7 +229,7 @@ async function handleLogout() {
                     {{ formatDate(r.date).date }} à {{ formatDate(r.date).time }}
                   </div>
                 </div>
-                <button @click="router.push(`/meeting/${r.id}`)" class="p-2 bg-slate-50 text-slate-400 hover:bg-indigo-600 hover:text-white rounded-lg transition-all">
+                <button @click="router.push(`/meeting/${r.id}`)" class="cursor-pointer p-2 bg-slate-50 text-slate-400 hover:bg-[#2d6b3f] hover:text-white rounded-lg transition-all">
                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                    </svg>

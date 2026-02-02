@@ -26,16 +26,16 @@ async function handleResetRequest() {
 </script>
 
 <template>
-  <div class="min-h-screen flex items-center justify-center px-6 relative overflow-hidden bg-slate-50">
+  <div class="min-h-screen flex items-center justify-center px-6 relative overflow-hidden bg-white">
     <!-- Background Decor -->
-    <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo-100/50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-    <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-sky-100/50 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
+    <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-green-50/50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+    <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-green-100/30 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
 
     <div class="w-full max-w-md animate-in fade-in slide-in-from-bottom duration-700">
       <!-- Logo/Brand -->
       <div class="flex flex-col items-center mb-10 text-center">
         <router-link to="/" class="group">
-          <div class="w-16 h-16 bg-indigo-600 rounded-2xl flex items-center justify-center shadow-xl mb-4 group-hover:-rotate-6 transition-transform">
+          <div class="w-16 h-16 bg-[#2d6b3f] rounded-2xl flex items-center justify-center shadow-xl mb-4 group-hover:-rotate-6 transition-transform">
              <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
              </svg>
@@ -54,7 +54,7 @@ async function handleResetRequest() {
               type="email" 
               id="email" 
               required 
-              class="w-full px-5 py-4 bg-slate-50/50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-indigo-500 focus:bg-white outline-none transition-all placeholder:text-slate-400"
+              class="w-full px-5 py-4 bg-slate-50/50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-[#2d6b3f] focus:bg-white outline-none transition-all placeholder:text-slate-400"
               placeholder="votre@email.com"
             />
           </div>
@@ -76,7 +76,7 @@ async function handleResetRequest() {
             </svg>
           </div>
           <p class="text-slate-700 font-medium">{{ message }}</p>
-          <router-link to="/login" class="inline-block font-bold text-indigo-600 hover:text-indigo-700 transition-colors pt-4">
+          <router-link to="/login" class="inline-block font-bold text-[#2d6b3f] hover:text-[#235230] transition-colors pt-4">
             Retour à la connexion
           </router-link>
         </div>
