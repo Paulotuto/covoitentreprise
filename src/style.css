@@ -147,3 +147,141 @@
 .zoom-in {
     animation: zoom-in 0.7s ease-out;
 }
+
+/* Custom Popup Styles (Native CSS) */
+.pop-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background-color: rgba(15, 23, 42, 0.4);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+}
+
+.pop-card {
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    border: 1px solid #f1f5f9;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    max-width: 24rem;
+    width: 100%;
+    border-radius: 2.5rem;
+    padding: 2.5rem;
+    text-align: center;
+    position: relative;
+    animation: zoom-in 0.3s ease-out;
+}
+
+.pop-x-btn {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    padding: 0.5rem;
+    color: #94a3b8;
+    background: transparent;
+    border: none;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: all 200ms ease-in-out;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pop-x-btn:hover {
+    color: #475569;
+    background-color: #f1f5f9;
+}
+
+.pop-content p {
+    font-size: 1.125rem;
+    line-height: 1.25;
+    font-family: 'Outfit', serif;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 2rem;
+}
+
+.pop-btn-group {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+}
+
+.pop-btn-primary {
+    width: 100%;
+    padding: 1rem;
+    background-color: #2d6b3f;
+    color: #ffffff;
+    font-weight: 700;
+    border: none;
+    border-radius: 1rem;
+    box-shadow: 0 10px 15px -3px rgba(45, 107, 63, 0.2);
+    cursor: pointer;
+    transition: all 200ms;
+    outline: none;
+}
+
+.pop-btn-primary:hover {
+    background-color: #235230;
+}
+
+.pop-btn-primary:active {
+    transform: scale(0.95);
+}
+
+.pop-btn-secondary {
+    width: 100%;
+    padding: 1rem;
+    background-color: #f1f5f9;
+    color: #475569;
+    font-weight: 700;
+    border: none;
+    border-radius: 1rem;
+    cursor: pointer;
+    transition: all 200ms;
+    outline: none;
+}
+
+.pop-btn-secondary:hover {
+    background-color: #e2e8f0;
+}
+
+.pop-btn-secondary:active {
+    transform: scale(0.95);
+}
+
+/* Exit Animations */
+.fade-out {
+    animation: fade-out 0.3s forwards ease-in;
+}
+
+.zoom-out {
+    animation: zoom-out 0.3s forwards ease-in;
+}
+
+@keyframes fade-out {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes zoom-out {
+    from {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    to {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+}

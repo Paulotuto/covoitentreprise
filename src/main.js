@@ -4,9 +4,12 @@ import App from './App.vue'
 import router from './router'
 import { registerSW } from 'virtual:pwa-register'
 
+import { usePop } from './composables/usePop'
+
 const updateSW = registerSW({
-    onNeedRefresh() {
-        if (confirm('Une nouvelle version est disponible. Voulez-vous actualiser ?')) {
+    async onNeedRefresh() {
+        const isConfirmed = await usePop().confirm('Une nouvelle version est disponible. Voulez-vous actualiser ?')
+        if (isConfirmed) {
             updateSW()
         }
     },

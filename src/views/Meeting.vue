@@ -3,6 +3,7 @@ import { ref, onMounted, computed } from 'vue'
 import { supabase } from '../supabase'
 import { useRoute, useRouter } from 'vue-router'
 import { formatDate } from '../main'
+import { usePop } from '../composables/usePop'
 
 const route = useRoute()
 const router = useRouter()
@@ -146,13 +147,13 @@ async function handleToggleRegistration(vehicleId) {
   // If user owns a vehicle, they can only "stay" in it
   const isOwner = vehicle.name === getParticipantFullName(user.value.id)
   if (userHasVehicle.value && !isOwner) {
-    alert("Vous avez déjà proposé une voiture. Vous ne pouvez pas vous inscrire dans une autre.")
+    usePop().pop("Vous avez déjà proposé une voiture. Vous ne pouvez pas vous inscrire dans une autre.")
     return
   }
 
   if (isOwner && isAlreadyRegistered) {
     // Prevent owner from deregistering from their own vehicle
-    alert("En tant que conducteur, vous devez rester inscrit dans votre propre véhicule.")
+    usePop().pop("En tant que conducteur, vous devez rester inscrit dans votre propre véhicule.")
     return
   }
 
@@ -190,18 +191,18 @@ async function handleToggleRegistration(vehicleId) {
 async function handleCreateVehicle() {
   if (!user.value || userHasVehicle.value || isAdmin.value) return
   if (!departureAddress.value.trim() || !returnAddress.value.trim()) {
-    alert("Veuillez renseigner les adresses de départ et de retour.")
+    usePop().pop("Veuillez remplir tous les champs")
     return
   }
   
   creatingVehicle.value = true
-  console.log(user.value)
   try {
     const { data, error: insertError } = await supabase
       .from('event_vehicles')
       .insert({
         name: getParticipantFullName(user.value.id),
         event: route.params.id,
+        user_id: user.value.id,
         users: [user.value.id],
         departure_address: departureAddress.value.trim(),
         return_address: returnAddress.value.trim()
@@ -215,28 +216,48 @@ async function handleCreateVehicle() {
     returnAddress.value = ''
   } catch (err) {
     console.error('Erreur création véhicule:', err)
-    alert("Erreur lors de la création du véhicule.")
   } finally {
     creatingVehicle.value = false
   }
 }
 
 async function handleDeleteVehicle(vehicleId) {
-  if (!confirm("Êtes-vous sûr de vouloir supprimer votre proposition de covoiturage ?")) return
+  const isConfirmed = await usePop().confirm("Êtes-vous sûr de vouloir supprimer votre proposition de covoiturage ?")
+  if (!isConfirmed) return
 
   try {
-    const { error: deleteError } = await supabase
+    // 1. Delete associated comments first to avoid foreign key violations
+    const { error: commentsError } = await supabase
+      .from('vehicle_comments')
+      .delete()
+      .eq('vehicle_id', vehicleId)
+
+    if (commentsError) {
+      console.error('Erreur suppression commentaires:', commentsError)
+      throw new Error(`Impossible de supprimer les commentaires : ${commentsError.message}`)
+    }
+
+    // 2. Delete the vehicle
+    const { data: deletedRows, error: deleteError } = await supabase
       .from('event_vehicles')
       .delete()
       .eq('id', vehicleId)
+      .select()
 
-    if (deleteError) throw deleteError
+    if (deleteError) {
+      console.error('Erreur suppression véhicule (API):', deleteError)
+      throw new Error(`Erreur base de données : ${deleteError.message}`)
+    }
+
+    if (!deletedRows || deletedRows.length === 0) {
+      console.error('Aucune ligne supprimée. Erreur RLS probable.')
+      throw new Error("La suppression a échoué. Vérifiez que vous êtes bien le créateur du véhicule et que la colonne 'user_id' existe avec la règle RLS associée.")
+    }
 
     // Optimistic update
     eventVehicles.value = eventVehicles.value.filter(v => v.id !== vehicleId)
   } catch (err) {
-    console.error('Erreur suppression véhicule:', err)
-    alert("Erreur lors de la suppression du véhicule.")
+    console.error('Erreur suppression véhicule (catch):', err)
   }
 }
 
@@ -485,6 +506,7 @@ function formatMsgTime(dateStr) {
             <button 
               @click="handleCreateVehicle"
               :disabled="creatingVehicle || userHasVehicle"
+              :class="{ 'cursor-not-allowed': creatingVehicle || userHasVehicle, 'cursor-pointer': !creatingVehicle && !userHasVehicle }"
               class="btn-primary py-3 px-8 rounded-2xl text-sm whitespace-nowrap shadow-green-100 flex items-center gap-2 disabled:bg-slate-200 disabled:text-slate-500 disabled:shadow-none transition-all"
             >
               <svg v-if="!creatingVehicle && !userHasVehicle" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">

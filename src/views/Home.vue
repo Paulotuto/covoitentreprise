@@ -213,7 +213,7 @@ async function handleLogout() {
           
           <div v-else class="flex-grow">
             <h1 class="text-4xl font-serif text-slate-900 mb-2">Bonjour, <span class="text-[#2d6b3f]">{{ profile.first_name }}</span> ! 👋</h1>
-            <p class="text-lg text-slate-500">Bienvenue dans votre espace <span class="font-bold underline decoration-green-200">{{ company?.name }}</span>.</p>
+            <p class="text-lg text-slate-500">Bienvenue dans votre espace de covoiturage <span class="font-bold underline decoration-green-200">{{ company?.name }}</span>.</p>
           </div>
         </div>
 
